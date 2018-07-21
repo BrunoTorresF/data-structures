@@ -1,43 +1,41 @@
-/* Queue is constructor function
-     define storage, count, and lowestCount
-   Create enqueue method, accepts values
-     adds value to queue
-     count increases by 1
-   Create dequeue method
-     Save last value to storage
-     delete last value
-     lowest count increases by 1
-     return saved value
-   Create size method
-     returns count minus lowestCount
-  */
+/* Queue is constructor function */
 var Queue = function() {
   var someInstance = {};
 
   // Use an object with numeric keys to store values
+  // define storage, value in, and value out
   var storage = {};
   var valueIn = 0;
   var valueOut = 0;
   // Implement the methods below
-
+  // Create enqueue method, accepts values
   someInstance.enqueue = function(value) {
+    // adds value to queue
     if (value) {
       storage[valueIn] = value;
+      // count increases by 1
       valueIn++;
     }
   };
 
+  // Create dequeue method
   someInstance.dequeue = function() {
     if (valueIn - valueOut === 0) {
       return undefined;
     }
+    //Save last value to storage
     let answer = storage[valueOut];
+    //delete last value
     delete storage[valueOut];
+    // lowest count increases by 1
     valueOut++;
+    // return saved value
     return answer;
   };
 
+  // Create size method
   someInstance.size = function() {
+    // returns count minus lowestCount
     return valueIn - valueOut;
   };
 

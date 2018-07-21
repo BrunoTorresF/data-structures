@@ -4,7 +4,7 @@ var Stack = function() {
   var someInstance = {};
   someInstance.count = 0;
   someInstance.storage = {};
-  _.extend(someInstance, stackMethods)
+  _.extend(someInstance, stackMethods);
   return someInstance;
 };
 
@@ -28,5 +28,5 @@ var stackMethods = {
 
   size: function() {
     return this.count > 0 ? this.count : 0;
-  }
+  },
 };
