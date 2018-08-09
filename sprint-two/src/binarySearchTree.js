@@ -1,38 +1,63 @@
-
 var BinarySearchTree = function(value) {
-  var newBinarySearchTree = Object.create(BinarySearchTree.prototype);
-  newBinarySearchTree.left = null;
-  newBinarySearchTree.right = null;
-  newBinarySearchTree.value = value;
-  return newBinarySearchTree;
+  var bst = Object.create(BinarySearchTree.prototype);
+  bst.value = value;
+  bst.left = null;
+  bst.right = null;
+  return bst;
 };
 
-  BinarySearchTree.prototype.insert = function (value) {
-    var newBST = BinarySearchTree(value);
+BinarySearchTree.prototype.insert = function(val) {
+  if (val === this.value) {
+    new Error('Cannot insert equal value');
+  }
 
-    var add = function(child, node) {
-      if (child.value < node.value && node.left === null) {
-        node.left = child;
-      } else {
-        return add(child, node.left);
-      }
-      if (child.value > node.value && node.value === null) {
-        node.right = child;
-      } else {
-        return add(child, node.right);
-      }
+  if (val < this.value) {
+    if (!this.left) {
+      this.left = BinarySearchTree(val);
+      return;
+    } else {
+      this.left.insert(val);
+      return;
     }
+  }
 
-    add(newBST, this);
-  };
+  if (val > this.value) {
+    if (!this.right) {
+      this.right = BinarySearchTree(val);
+      return;
+    } else {
+      this.right.insert(val);
+      return;
+    }
+  }
+};
+BinarySearchTree.prototype.contains = function(targetValue) {
+  if (this.value === targetValue) {
+    return true;
+  }
+  if (this.value < targetValue && this.right) {
+    return this.right.contains(targetValue);
+  }
+  if (this.value > targetValue && this.left) {
+    return this.left.contains(targetValue);
+  }
+  return false;
+};
 
-  BinarySearchTree.prototype.contains = function (value) {
+BinarySearchTree.prototype.depthFirstLog = function(cb, currentNode) {
+  currentNode = currentNode || this;
 
-  };
+  cb(currentNode.value);
 
-  BinarySearchTree.prototype.depthFirstLog = function (cb) {
+  if (currentNode.left) {
+    currentNode.depthFirstLog(cb, currentNode.left);
+  }
+  if (currentNode.right) {
+    currentNode.depthFirstLog(cb, currentNode.right);
+  }
+};
 
-  };
 /*
  * Complexity: What is the time complexity of the above functions?
+ * O(n)
  */
